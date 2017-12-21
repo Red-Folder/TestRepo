@@ -1,6 +1,6 @@
 package WeHaveSecrets
 
-import WeHaveSecrets.vcsRoots.*
+import WeHaveSecrets.buildTypes.*
 import jetbrains.buildServer.configs.kotlin.v2017_2.*
 import jetbrains.buildServer.configs.kotlin.v2017_2.Project
 import jetbrains.buildServer.configs.kotlin.v2017_2.projectFeatures.VersionedSettings
@@ -12,14 +12,14 @@ object Project : Project({
     parentId = "_Root"
     name = "WeHaveSecrets"
 
-    vcsRoot(WeHaveSecrets_HttpsGithubComRedFolderWeHaveSecretsGit)
+    buildType(WeHaveSecrets_Build)
 
     features {
         versionedSettings {
             id = "PROJECT_EXT_2"
             mode = VersionedSettings.Mode.ENABLED
             buildSettingsMode = VersionedSettings.BuildSettingsMode.USE_CURRENT_SETTINGS
-            rootExtId = "HttpsGithubComRedFolderTestRepoGit"
+            rootExtId = "WeHaveSecretsConfig"
             showChanges = false
             settingsFormat = VersionedSettings.Format.KOTLIN
             storeSecureParamsOutsideOfVcs = true
