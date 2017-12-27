@@ -5,13 +5,11 @@ import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.dockerBuild
 import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.dotnetPublish
 import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.dotnetRestore
 import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.dotnetTest
-import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.script
-import jetbrains.buildServer.configs.kotlin.v2017_2.triggers.vcs
 
 object WeHaveSecrets_Build : BuildType({
     uuid = "a5238805-0de5-4282-8c71-3c75cd3374c3"
     id = "WeHaveSecrets_Build"
-    name = "Build"
+    name = "01. Unit Test and Build Docker images"
 
     vcs {
         root("WeHaveSecretsCode")
@@ -42,24 +40,19 @@ object WeHaveSecrets_Build : BuildType({
             param("dotNetCoverage.dotCover.home.path", "%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%")
         }
         dockerBuild {
+            name = "Build the DB Setup Docker Image"
+            source = path {
+                path = "Db.WeHaveSecrets/Dockerfile"
+            }
+            namesAndTags = "wehavesecrets-db-setup"
+        }
+        dockerBuild {
             name = "Build wehavesecrets image"
             source = path {
                 path = "WeHaveSecrets/Dockerfile"
             }
             contextDir = "WeHaveSecrets"
             namesAndTags = "wehavesecrets"
-        }
-        script {
-            name = "Start WeHaveSecrets.com"
-            scriptContent = """
-                docker rm -f wehavesecrets
-                docker run -d --network wehavesecrets_secrets-network --name wehavesecrets -e "ConnectionStrings:DefaultConnection"="Server=172.20.0.22;Database=WeHaveSecrets;User Id=sa;Password=AbC!23hgAAA;" -p 8080:80 wehavesecrets:latest
-            """.trimIndent()
-        }
-    }
-
-    triggers {
-        vcs {
         }
     }
 })

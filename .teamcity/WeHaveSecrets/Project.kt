@@ -12,7 +12,9 @@ object Project : Project({
     parentId = "_Root"
     name = "WeHaveSecrets"
 
+    buildType(WeHaveSecrets_PrepareDatabase)
     buildType(WeHaveSecrets_Build)
+    buildType(WeHaveSecrets_StartUpWeHaveSecretsWebsite)
 
     features {
         versionedSettings {
