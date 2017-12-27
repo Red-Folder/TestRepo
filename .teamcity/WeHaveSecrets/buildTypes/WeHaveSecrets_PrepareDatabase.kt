@@ -18,7 +18,7 @@ object WeHaveSecrets_PrepareDatabase : BuildType({
             name = "Create empty database"
             scriptContent = """
                 docker rm -f wehavesecrets-db
-                docker run \
+                docker run -d \
                 --network wehavesecrets_secrets-network \
                 --ip 172.20.0.22 \
                 --name wehavesecrets-db \
