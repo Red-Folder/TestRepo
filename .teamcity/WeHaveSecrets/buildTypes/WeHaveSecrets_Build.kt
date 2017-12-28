@@ -54,5 +54,13 @@ object WeHaveSecrets_Build : BuildType({
             contextDir = "WeHaveSecrets"
             namesAndTags = "wehavesecrets"
         }
+        dockerBuild {
+            name = "Build wehavesecrets image (1)"
+            source = path {
+                path = "Cypress/Dockerfile"
+            }
+            contextDir = "Cypress"
+            namesAndTags = "wehavesecrets-tests-end2end"
+        }
     }
 })

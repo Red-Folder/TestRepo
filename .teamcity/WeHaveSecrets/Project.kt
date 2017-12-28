@@ -13,6 +13,7 @@ object Project : Project({
     name = "WeHaveSecrets"
 
     buildType(WeHaveSecrets_PrepareDatabase)
+    buildType(WeHaveSecrets_RunEnd2EndTests)
     buildType(WeHaveSecrets_Build)
     buildType(WeHaveSecrets_StartUpWeHaveSecretsWebsite)
 

@@ -46,6 +46,7 @@ object WeHaveSecrets_PrepareDatabase : BuildType({
     dependencies {
         dependency(WeHaveSecrets.buildTypes.WeHaveSecrets_Build) {
             snapshot {
+                onDependencyFailure = FailureAction.CANCEL
             }
         }
     }

@@ -2,7 +2,6 @@ package WeHaveSecrets.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.v2017_2.*
 import jetbrains.buildServer.configs.kotlin.v2017_2.buildSteps.script
-import jetbrains.buildServer.configs.kotlin.v2017_2.triggers.vcs
 
 object WeHaveSecrets_StartUpWeHaveSecretsWebsite : BuildType({
     uuid = "277b208f-d0d6-4646-aca9-52638b76b939"
@@ -28,11 +27,6 @@ object WeHaveSecrets_StartUpWeHaveSecretsWebsite : BuildType({
                 -v ${'$'}WEHAVESECRETS_WORKINGFOLDER/backups:/app/wwwroot/backups \
                 wehavesecrets:latest
             """.trimIndent()
-        }
-    }
-
-    triggers {
-        vcs {
         }
     }
 
