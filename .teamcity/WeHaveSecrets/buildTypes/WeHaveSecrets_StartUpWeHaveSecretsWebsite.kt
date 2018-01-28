@@ -17,15 +17,7 @@ object WeHaveSecrets_StartUpWeHaveSecretsWebsite : BuildType({
         script {
             name = "Start WeHaveSecrets.com"
             scriptContent = """
-                docker rm -f wehavesecrets
-                docker run -d \
-                --network wehavesecrets_secrets-network \
-                --ip 172.20.0.30 \
-                --name wehavesecrets \
-                -e "ConnectionStrings:DefaultConnection"="Server=172.20.0.22;Database=WeHaveSecrets;User Id=sa;Password=${'$'}WEHAVESECRETS_SQLPASSWORD;" \
-                -p 8080:80 \
-                -v ${'$'}WEHAVESECRETS_WORKINGFOLDER/backups:/app/wwwroot/backups \
-                wehavesecrets:latest
+                docker-compose -p 'WeHaveSecrets' up -d --force-recreate web
             """.trimIndent()
         }
     }

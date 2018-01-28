@@ -39,28 +39,5 @@ object WeHaveSecrets_Build : BuildType({
             outputDir = "obj/Docker/publish"
             param("dotNetCoverage.dotCover.home.path", "%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%")
         }
-        dockerBuild {
-            name = "Build the DB Setup Docker Image"
-            source = path {
-                path = "Db.WeHaveSecrets/Dockerfile"
-            }
-            namesAndTags = "wehavesecrets-db-setup"
-        }
-        dockerBuild {
-            name = "Build wehavesecrets image"
-            source = path {
-                path = "WeHaveSecrets/Dockerfile"
-            }
-            contextDir = "WeHaveSecrets"
-            namesAndTags = "wehavesecrets"
-        }
-        dockerBuild {
-            name = "Build wehavesecrets image (1)"
-            source = path {
-                path = "Cypress/Dockerfile"
-            }
-            contextDir = "Cypress"
-            namesAndTags = "wehavesecrets-tests-end2end"
-        }
     }
 })

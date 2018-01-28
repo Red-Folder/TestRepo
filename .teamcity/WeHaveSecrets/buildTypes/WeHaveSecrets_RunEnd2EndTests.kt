@@ -16,19 +16,9 @@ object WeHaveSecrets_RunEnd2EndTests : BuildType({
 
     steps {
         script {
-            name = "Create output folder for video"
-            scriptContent = """mkdir c:\tmp\wehavesecrets\end2end\%system.build.number%"""
-        }
-        script {
             name = "Run End2End tests"
             scriptContent = """
-                docker rm -f wehavesecrets-tests-end2end
-                docker run \
-                --name wehavesecrets-tests-end2end \
-                --network 'wehavesecrets_secrets-network' \
-                -e 'CYPRESS_WEHAVESECRETS_URL=http://wehavesecrets' \
-                -v ${'$'}WEHAVESECRETS_WORKINGFOLDER/end2end/%system.build.number%:/app/cypress/videos \
-                wehavesecrets-tests-end2end
+                docker-compose -p 'WeHaveSecrets' up --force-recreate tests-end2end
             """.trimIndent()
         }
     }

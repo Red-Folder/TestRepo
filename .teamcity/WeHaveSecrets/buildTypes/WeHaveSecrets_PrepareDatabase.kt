@@ -17,28 +17,13 @@ object WeHaveSecrets_PrepareDatabase : BuildType({
         script {
             name = "Create empty database"
             scriptContent = """
-                docker rm -f wehavesecrets-db
-                docker run -d \
-                --network wehavesecrets_secrets-network \
-                --ip 172.20.0.22 \
-                --name wehavesecrets-db \
-                -e "ACCEPT_EULA"="${'$'}WEHAVESECRETS_SQLLICENCEACCEPTED" \
-                -e "SA_PASSWORD"="${'$'}WEHAVESECRETS_SQLPASSWORD" \
-                -p ${'$'}WEHAVESECRETS_SQLLOCALPORT:1433 \
-                -v ${'$'}WEHAVESECRETS_WORKINGFOLDER/backups:/app/wwwroot/backups \
-                microsoft/mssql-server-linux:latest
+                docker-compose -p 'WeHaveSecrets' up -d --force-recreate db 
             """.trimIndent()
         }
         script {
             name = "Run DB Setup"
             scriptContent = """
-                docker rm -f wehavesecrets-db-setup
-                docker run \
-                --network wehavesecrets_secrets-network \
-                --ip 172.20.0.23 \
-                --name wehavesecrets-db-setup \
-                -e "CONNECTIONSTRING"="Server=172.20.0.22;Database=WeHaveSecrets;User Id=sa;Password=${'$'}WEHAVESECRETS_SQLPASSWORD;" \
-                wehavesecrets-db-setup:latest
+                docker-compose -p 'WeHaveSecrets' up --force-recreate db-setup
             """.trimIndent()
         }
     }
