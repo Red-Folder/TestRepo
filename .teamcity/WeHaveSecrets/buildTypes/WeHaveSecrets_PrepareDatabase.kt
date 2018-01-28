@@ -17,13 +17,13 @@ object WeHaveSecrets_PrepareDatabase : BuildType({
         script {
             name = "Create empty database"
             scriptContent = """
-                docker-compose -p 'WeHaveSecrets' up -d --force-recreate db 
+                docker-compose -f setup\docker-compose.yml -p 'WeHaveSecrets' up -d --force-recreate db 
             """.trimIndent()
         }
         script {
             name = "Run DB Setup"
             scriptContent = """
-                docker-compose -p 'WeHaveSecrets' up --force-recreate db-setup
+                docker-compose -f setup\docker-compose.yml -p 'WeHaveSecrets' up --force-recreate db-setup
             """.trimIndent()
         }
     }

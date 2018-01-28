@@ -18,7 +18,7 @@ object WeHaveSecrets_RunEnd2EndTests : BuildType({
         script {
             name = "Run End2End tests"
             scriptContent = """
-                docker-compose -p 'WeHaveSecrets' up --force-recreate tests-end2end
+                docker-compose -f setup\docker-compose.yml -p 'WeHaveSecrets' up --force-recreate tests-end2end
             """.trimIndent()
         }
     }
