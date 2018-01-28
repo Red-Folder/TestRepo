@@ -17,7 +17,7 @@ object WeHaveSecrets_StartUpWeHaveSecretsWebsite : BuildType({
         script {
             name = "Start WeHaveSecrets.com"
             scriptContent = """
-                docker-compose -f setup\docker-compose.yml -p 'WeHaveSecrets' up -d --force-recreate web
+                docker-compose -f setup/docker-compose.yml -p 'WeHaveSecrets' up -d --force-recreate web
             """.trimIndent()
         }
     }
